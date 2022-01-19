@@ -6,6 +6,7 @@ pub fn solve(day: u32) {
     use solutions::*;
     match day {
         8 => day8::main(),
+        9 => day9::main(),
         _ => panic!("Not yet implemented: day {day}"),
     }
 }
