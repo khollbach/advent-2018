@@ -15,6 +15,7 @@ pub fn main() {
 
     let tree = parse_tree(&mut nums.into_iter());
     println!("{}", tree.metadata_sum());
+    println!("{}", tree.value());
 }
 
 struct Tree {
@@ -27,6 +28,22 @@ impl Tree {
         let self_sum: usize = self.metadata.iter().sum();
         let children_sum: usize = self.children.iter().map(Tree::metadata_sum).sum();
         self_sum + children_sum
+    }
+
+    fn value(&self) -> usize {
+        if self.children.is_empty() {
+            self.metadata_sum()
+        } else {
+            let child_values: Vec<_> = self.children.iter().map(Tree::value).collect();
+
+            self.metadata.iter().filter_map(|&m| {
+                if 1 <= m && m <= child_values.len() {
+                    Some(child_values[m - 1])
+                } else {
+                    None
+                }
+            }).sum()
+        }
     }
 }
 
