@@ -24,20 +24,22 @@ struct Point {
 pub fn main() {
     let sky = read_input(io::stdin().lock());
 
-    part_1(sky);
+    let (message, time_waited) = solve(sky);
+    message.print();
+    println!("{time_waited}");
 }
 
-fn part_1(mut sky: Sky) {
+fn solve(mut sky: Sky) -> (Sky, usize) {
     // Find a local minimum.
-    let best = loop {
+    for time_waited in 0.. {
         let next = sky.next();
         if next.entropy() > sky.entropy() {
-            break sky;
+            return (sky, time_waited);
         }
         sky = next;
-    };
+    }
 
-    best.print();
+    unreachable!();
 }
 
 impl Sky {
