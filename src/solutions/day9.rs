@@ -18,10 +18,11 @@ fn read_input(input: impl BufRead) -> (usize, u32) {
 pub fn main() {
     let (num_players, last_marble) = read_input(io::stdin().lock());
 
-    println!("{}", part_1(num_players, last_marble));
+    println!("{}", solve(num_players, last_marble));
+    println!("{}", solve(num_players, last_marble * 100));
 }
 
-fn part_1(num_players: usize, last_marble: u32) -> u32 {
+fn solve(num_players: usize, last_marble: u32) -> u32 {
     let mut scores = vec![0; num_players];
 
     // Place the initial marble.
